@@ -48,7 +48,8 @@ function Home() {
                 )}
 
                 {/* Recent Posts */}
-                <section className="mb-12 mx-8">
+                {
+                    (recent.length>0 && <section className="mb-12 mx-8">
                     <h2 className="text-2xl font-semibold mb-4">Recent Posts</h2>
                     <div className="flex flex-wrap -m-2">
                         {recent.map(post => (
@@ -57,7 +58,8 @@ function Home() {
                             </div>
                         ))}
                     </div>
-                </section>
+                </section>)
+                }
             
         </div>
     );

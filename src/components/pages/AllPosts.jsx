@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { PostCard } from '../index'
 import appwriteService from '../../appwrite/conf'
+import{ Container} from '../index'
 
 function AllPosts() {
   const [posts, setPosts] = useState([])
@@ -14,7 +15,7 @@ function AllPosts() {
   }, [])
 
   return (
-    <div className="w-full py-8 px-8 ml-15">
+    (posts.length>0) ? (<div className="w-full py-8 px-8 ml-15">
         <h1 className='mb-8 text-5xl font-bold py-3'>Explore the World of Words</h1>
       <div className="flex flex-wrap gap-12 ">
         {posts.map((post) => (
@@ -26,8 +27,17 @@ function AllPosts() {
           </div>
         ))}
       </div>
+      
     </div>
-  )
+  ):(<div className="w-full py-8 mt-4 text-center">
+                <Container>
+                    <h1 className="text-2xl font-bold hover:text-gray-500">
+                        No Posts
+                    </h1>
+                </Container>
+            </div>
+            )
+)
 }
 
 export default AllPosts

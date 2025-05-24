@@ -62,12 +62,10 @@ function Post() {
                         src={file}
 
                         alt={post.title}
-                        className="rounded-xl"
+                        className="rounded-xl w-full"
+
 
                     />
-                    
-                    
-
                     {isAuthor && (
                         <div className="absolute right-6 bottom-6">
                             <Link to={`/edit-post/${post.$id}`}>
@@ -88,6 +86,10 @@ function Post() {
 
                         </div>
                     )}
+                    
+                    
+
+                    
                 </div>
                 <div className="w-full mb-6 ml-2">
                     <h1 className="text-2xl font-bold">{post.title}</h1>
