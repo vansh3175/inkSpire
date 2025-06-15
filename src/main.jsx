@@ -20,8 +20,12 @@ const router = createBrowserRouter([
     element:<App/>,
     children:[
       {
-        path:'/',
-        element:<Home/>
+        path: '/',
+        element: (
+          <AuthLayout authentication>
+            <Home />
+          </AuthLayout>
+        )
       },
       {
         path:'login',
@@ -51,7 +55,10 @@ const router = createBrowserRouter([
         {
             path: "/add-post",
             element: (
-                <AddPost/>
+                <AuthLayout authentication>
+                    {" "}
+                    <AddPost />
+                </AuthLayout>
             ),
         },
         {

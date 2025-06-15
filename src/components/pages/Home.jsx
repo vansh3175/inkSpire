@@ -2,15 +2,30 @@ import { useEffect, useState } from "react";
 import appWriteService from '../../appwrite/conf';
 import { Container, PostCard } from '../index';
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function Home() {
     const [posts, setPosts] = useState([]);
+    const userStatus = useSelector(state=>state.auth.status);
 
     useEffect(() => {
         appWriteService.getPosts([]).then((data) => {
             if (data) setPosts(data.documents);
         });
     }, []);
+
+    if(!userStatus){
+        return (
+            <div className="w-full py-8 mt-4 text-center">
+                <Container>
+                    <h1 className="text-2xl font-bold hover:text-gray-500">
+                        You must be logged in
+                    </h1>
+                </Container>
+            </div>
+        );
+
+    }
 
     if (posts.length === 0) {
         return (

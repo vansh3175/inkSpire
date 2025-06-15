@@ -15,14 +15,17 @@ import { useDispatch } from 'react-redux'
     const navigate = useNavigate();
 
     const create=async (data)=>{
+        console.log(data);
+        if(data.password.length<8 || data.password.length>256){
+            setError("invalid password must be of length atleast 8 and less than 256 characters")
+            return;
+        }
         setError("");
         try {
-            const session= await authService.createAccount(data) ;
-            if(session){
-                const userData = authService.getCurrentUser();
-                if(userData) dispatch(authLogin(userData));
-                navigate('/');
-            }
+            const session = await authService.createAccount(data);
+            if(session) dispatch(authLogin(session));
+            navigate('/');
+            
         } catch (error) {
             setError(error.message);
         }
@@ -71,7 +74,9 @@ import { useDispatch } from 'react-redux'
                         type="password"
                         placeholder="Enter your password"
                         {...register("password", {
-                            required: true,})}
+                            required: true,
+                            
+                            })}
                         />
                         <Button type="submit" className="w-full">
                             Create Account

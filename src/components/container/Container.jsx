@@ -1,5 +1,5 @@
 function Container({children}) {
-  return  <div className='w-full  mx-4'>{children}</div>;
+  return  <div className='w-full mx-4'>{children}</div>;
   
 }
 

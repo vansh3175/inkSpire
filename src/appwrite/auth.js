@@ -12,14 +12,25 @@ class Auth{
         this.account = new Account(this.client);
     }
 
+    async login({email,password}){
+        try {
+            return await this.account.createEmailPasswordSession(email, password);
+        } catch (error) {
+            console.error(error.message);
+        }
+    }
+
     async createAccount({email,password,name}){
         try {
             const userAccount = await this.account.create(ID.unique(),email,password,name);
             if(userAccount){
-                this.login({email,password});
+                await this.login({email,password});
+                const user = await this.getCurrentUser();
+                return user;
             }
             else{
                 throw new console.error("some error");
+                
                 
             }
             
@@ -28,19 +39,12 @@ class Auth{
         }
     } 
 
-    async login({email,password}){
-        try {
-            return await this.account.createEmailPasswordSession(email,password);
-
-        } catch (error) {
-            throw error;
-            
-        }
-    }
 
      async getCurrentUser() {
         try {
-            return await this.account.get();
+            const result = await this.account.get();
+            return result;
+            
         } catch (error) {
             console.log(error);
         }
