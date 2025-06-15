@@ -15,7 +15,7 @@ import { useDispatch } from 'react-redux'
     const navigate = useNavigate();
 
     const create=async (data)=>{
-        console.log(data);
+        
         if(data.password.length<8 || data.password.length>256){
             setError("invalid password must be of length atleast 8 and less than 256 characters")
             return;
@@ -23,8 +23,14 @@ import { useDispatch } from 'react-redux'
         setError("");
         try {
             const session = await authService.createAccount(data);
-            if(session) dispatch(authLogin(session));
-            navigate('/');
+            if(session) {
+                dispatch(authLogin(session));
+                navigate('/');
+            }
+            else{
+                setError("Some issue on our side. Please try again Later")
+
+            }
             
         } catch (error) {
             setError(error.message);

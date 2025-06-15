@@ -10,7 +10,7 @@ function Login() {
     const dispatch = useDispatch();
     const {register,handleSubmit} = useForm();
     const navigate = useNavigate();
-    const [error,setError] = useState();
+    const [error,setError] = useState("");
 
     const login = async (data)=>{
         setError("");
@@ -21,9 +21,15 @@ function Login() {
                 if(userData) dispatch(authLogin(userData));
                 navigate('/');
             }
+            else{
+                setError("Some issue on our side. Please try again Later")
+            }
             
-        } catch (error) {
-            setError(error.message);
+            
+        } catch (err) {
+            
+            setError(err.message);
+            
         }
     }
 
@@ -46,7 +52,7 @@ function Login() {
                         Sign Up
                     </Link>
             </p>
-            {error && <p className="text-red-600 mt-8 text-center" >{error}</p>}
+            {error && <p className='text-red-500 text-center'>{error}</p>}
 
             <form
             onSubmit={handleSubmit(login)}
