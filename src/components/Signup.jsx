@@ -24,7 +24,7 @@ import { useDispatch } from 'react-redux'
         try {
             const session = await authService.createAccount(data);
             if(session) {
-                dispatch(authLogin(session));
+                dispatch(authLogin({userData:session}));
                 navigate('/');
             }
             else{
